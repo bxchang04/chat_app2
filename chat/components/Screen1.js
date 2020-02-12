@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 // import relevant components from react native
 
-import { StyleSheet, Text, View, TextInput, Button, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ImageBackground } from 'react-native';
 
-export default class Start extends Component {
+// Starting Screen
+export default class Screen1 extends Component {
 
   render() {
     return (

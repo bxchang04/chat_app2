@@ -3,7 +3,14 @@ import React, { Component } from 'react';
 
 import { StyleSheet, Text, View, TextInput, Button, ImageBackground } from 'react-native';
 
+// Starting Screen
 export default class Start extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { name: '' };
+  }
+  
+export default class Screen2 extends Component {
 
   render() {
     return (
