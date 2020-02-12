@@ -1,3 +1,5 @@
+//yourNameInput, tContainer, startChatButton, bgdImage, color_buttonContainer, color_Button, bgdImage, TouchableOpacity -> Button
+
 import React, { Component } from 'react';
 // import relevant components from react native
 
@@ -13,32 +15,32 @@ export default class Start extends Component {
 
   render() {
      return (
-       <ImageBackground source={require('../assets/chatBackground.png')} style={styles.backgroundImage}>
+       <ImageBackground source={require('../assets/chatBackground.png')} style={styles.bgdImage}>
            <Text style={styles.title}>The Chat App</Text>
            <View style={styles.container}>
-             <View style={styles.triContainer}>
-                   <View style={styles.containerTriFlex}>
-                       <TextInput
-                           style={styles.yourNameInput}
-                           onChangeText={(name) => this.setState({ name })}
-                           value={this.state.name}
-                           placeholder='Your name'
-                       />
-                   </View>
-                   <Text>Pick your background!</Text>
-                   <View style={styles.colorButtonContainer}>
-                       <TouchableOpacity style={[styles.colorButton, styles.brown]} onPress={() => this.setState({ color: '#99847B' })}></TouchableOpacity>
-                       <TouchableOpacity style={[styles.colorButton, styles.red]} onPress={() => this.setState({ color: '#CB8C9D' })}></TouchableOpacity>
-                       <TouchableOpacity style={[styles.colorButton, styles.blue]} onPress={() => this.setState({ color: '#B8CECD' })}></TouchableOpacity>
-                       <TouchableOpacity style={[styles.colorButton, styles.yellow]} onPress={() => this.setState({ color: '#DAE362' })}></TouchableOpacity>
-                   </View>
-                   <Button
-                       title='Start Chatting'
-                       color='#CFB8B9'
-                       style={[styles.containerTriFlex, styles.startChattingButton]}
-                       onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, color: this.state.color })}
-                   />
+             <View style={styles.tContainer}>
+               <View style={styles.containerTriFlex}>
+                 <TextInput
+                   style={styles.nameInput}
+                   onChangeText={(name) => this.setState({ name })}
+                   value={this.state.name}
+                   placeholder='Your name'
+                 />
                </View>
+               <Text>Pick your background!</Text>
+               <View style={styles.color_buttonContainer}>
+                 <Button style={[styles.color_Button, styles.brown]} onPress={() => this.setState({ color: '#99847B' })}/>
+                 <Button style={[styles.color_Button, styles.red]} onPress={() => this.setState({ color: '#CB8C9D' })}/>
+                 <Button style={[styles.color_Button, styles.blue]} onPress={() => this.setState({ color: '#B8CECD' })}/>
+                 <Button style={[styles.color_Button, styles.yellow]} onPress={() => this.setState({ color: '#DAE362' })}/>
+               </View>
+               <Button
+                 title='Start Chatting'
+                 color='#CFB8B9'
+                 style={[styles.containerTriFlex, styles.startChatButton]}
+                 onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, color: this.state.color })}
+               />
+             </View>
            </View>
        </ImageBackground>
 
@@ -53,14 +55,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 100,
   },
-  backgroundImage: {
+  bgdImage: {
     width: '100%',
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },
-  yourNameInput: {
+  nameInput: {
     fontSize: 16,
     fontWeight: '300',
     color: '#757083',
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 0.5,
     marginTop: 5,
   },
-  triContainer: {
+  tContainer: {
     flex: 1,
     margin: 10,
   },
@@ -83,17 +85,17 @@ const styles = StyleSheet.create({
     width: '88%',
     padding: 10,
   },
-  colorButtonContainer: {
+  color_buttonContainer: {
     flexDirection: 'row',
     flex: 3,
   },
-  colorButton: {
+  color_Button: {
     width: 50,
     height: 50,
     margin: 5,
     borderRadius: 25,
   },
-  startChattingButton: {
+  startChatButton: {
     backgroundColor: '#CFB8B9',
     width: '88%',
   },
