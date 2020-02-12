@@ -15,7 +15,7 @@ export default class Start extends Component {
 
   render() {
      return (
-       <ImageBackground source={require('../assets/chatBackground.png')} style={styles.bgdImage}>
+       <ImageBackground source={require('../assets/background_image.png')} style={styles.bgdImage}>
            <Text style={styles.title}>The Chat App</Text>
            <View style={styles.container}>
              <View style={styles.tContainer}>

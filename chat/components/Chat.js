@@ -24,8 +24,9 @@ export default class Chat extends Component {
           alignItems: "center"
         }}
       >
-      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-      </View>
+        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+        </View>
+      </ImageBackground>
     )
   }
 }

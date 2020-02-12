@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 // import the screens
-import Screen1 from './components/Screen1';
-import Screen2 from './components/Screen2';
+import Screen1 from './components/Start';
+import Screen2 from './components/Chat';
 // import react Navigation
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
