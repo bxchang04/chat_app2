@@ -10,8 +10,8 @@ import { createStackNavigator } from 'react-navigation-stack'
 
 // Create the navigator
 const navigator = createStackNavigator({
-  Screen1: { screen: Screen1 },
-  Screen2: { screen: Screen2 }
+  Start: { screen: Start },
+  Chat: { screen: Chat }
 });
 
 const navigatorContainer = createAppContainer(navigator);
