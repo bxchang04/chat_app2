@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
   },
   startChatButton: {
     backgroundColor: '#CFB8B9',
-    width: '88%',
   },
   brown: {
     backgroundColor: '#99847B',
