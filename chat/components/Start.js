@@ -25,14 +25,13 @@ export default class Start extends Component {
            <View style={styles.tContainer}>
              <View style={styles.containerTriFlex}>
                <TextInput
-                 color='#757083'
                  style={styles.nameInput}
                  onChangeText={(name) => this.setState({ name })}
                  value={this.state.name}
                  placeholder='Your name'
                />
              </View>
-             <Text color='#757083'>Choose Background Color:</Text>
+             <Text style={{opacity: 1.0, color:'#757083'}}>Choose Background Color:</Text>
              <View style={styles.color_buttonContainer}>
                <Text style={[styles.color_Button, styles.black]} onPress={() => this.setState({ color: '#090C08' })}/>
                <Text style={[styles.color_Button, styles.gray]} onPress={() => this.setState({ color: '#474056' })}/>
@@ -77,6 +76,7 @@ const styles = StyleSheet.create({
     color: '#757083',
     backgroundColor: 'rgba(0,0,0,0.1)',
     flex: 0.5,
+    opacity: 0.5
   },
   tContainer: {
     flex: 1,
