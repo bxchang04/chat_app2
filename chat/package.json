@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.6",
+    "chalk": "^3.0.0",
     "expo": "~36.0.0",
     "mem": "^6.0.1",
     "react": "~16.9.0",

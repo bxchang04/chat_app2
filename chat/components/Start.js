@@ -28,12 +28,12 @@ export default class Start extends Component {
                  style={styles.nameInput}
                  onChangeText={(name) => this.setState({ name })}
                  value={this.state.name}
-                 placeholder='Your name',
-                 color='#757083',
+                 placeholder='Your name'
+                 color='#757083'
                  style={{opacity: 0.5}}
                />
              </View>
-             <Text style={{opacity: 1.0}, color='#757083'}>Choose Background Color:</Text>
+             <Text style={{opacity: 1.0, color: '#757083'}}>Choose Background Color:</Text>
              <View style={styles.color_buttonContainer}>
                <Text style={[styles.color_Button, styles.black]} onPress={() => this.setState({ color: '#090C08' })}/>
                <Text style={[styles.color_Button, styles.gray]} onPress={() => this.setState({ color: '#474056' })}/>
