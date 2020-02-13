@@ -25,22 +25,23 @@ export default class Start extends Component {
            <View style={styles.tContainer}>
              <View style={styles.containerTriFlex}>
                <TextInput
+                 color='#757083'
                  style={styles.nameInput}
                  onChangeText={(name) => this.setState({ name })}
                  value={this.state.name}
                  placeholder='Your name'
                />
              </View>
-             <Text>Pick your background!</Text>
+             <Text color='#757083'>Choose Background Color:</Text>
              <View style={styles.color_buttonContainer}>
-               <Text style={[styles.color_Button, styles.brown]} onPress={() => this.setState({ color: '#99847B' })}/>
-               <Text style={[styles.color_Button, styles.red]} onPress={() => this.setState({ color: '#CB8C9D' })}/>
-               <Text style={[styles.color_Button, styles.blue]} onPress={() => this.setState({ color: '#B8CECD' })}/>
-               <Text style={[styles.color_Button, styles.yellow]} onPress={() => this.setState({ color: '#DAE362' })}/>
+               <Text style={[styles.color_Button, styles.black]} onPress={() => this.setState({ color: '#090C08' })}/>
+               <Text style={[styles.color_Button, styles.gray]} onPress={() => this.setState({ color: '#474056' })}/>
+               <Text style={[styles.color_Button, styles.blue]} onPress={() => this.setState({ color: '#8A95A5' })}/>
+               <Text style={[styles.color_Button, styles.green]} onPress={() => this.setState({ color: '#B9C6AE' })}/>
              </View>
              <Button
                title='Start Chatting'
-               color='#CFB8B9'
+               color='#757083'
                style={[styles.containerTriFlex, styles.startChatButton]}
                onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, color: this.state.color })}
              />
@@ -113,17 +114,17 @@ const styles = StyleSheet.create({
   startChatButton: {
     backgroundColor: '#CFB8B9',
   },
-  brown: {
-    backgroundColor: '#99847B',
+  black: {
+    backgroundColor: '#090C08',
   },
-  red: {
-    backgroundColor: '#CB8C9D',
+  gray: {
+    backgroundColor: '#474056',
   },
   blue: {
-    backgroundColor: '#B8CECD',
+    backgroundColor: '#8A95A5',
   },
-  yellow: {
-    backgroundColor: '#DAE362',
+  green: {
+    backgroundColor: '#B9C6AE',
   },
 
 });
