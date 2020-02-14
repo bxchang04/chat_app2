@@ -8,10 +8,10 @@ const firebase = require('firebase');
 require('firebase/firestore');
 
 export default class Chat extends Component {
-
-  constructor() {
-    super();
-    YellowBox.ignoreWarnings(["Setting a timer"]);
+  //why add (props)?
+  constructor(props) {
+    super(props);
+    // YellowBox.ignoreWarnings(["Setting a timer"]);
     if (!firebase.apps.length) {
       firebase.initializeApp({
         apiKey: "AIzaSyANcG9zt8msq61vbVyFeAInu7AvegFD8og",
@@ -22,14 +22,8 @@ export default class Chat extends Component {
         messagingSenderId: "320788073310"
       });
     }
+  };
 
-
-    };
-
-    //differs from repo
-    // this.referenceMessagesUser = null;
-    this.referenceMessages = firebase.firestore().collection('message');
-    //end differ
     this.state = {
       messages: [],
       user: {
@@ -37,11 +31,15 @@ export default class Chat extends Component {
         name: "",
         avatar: ""
       },
-      loginText: "please wait..."
+      loginText: "Please wait, you are getting logged in..."
     };
   }
 
   componentDidMount() {
+    //differs from repo
+    // this.referenceMessagesUser = null;
+    this.referenceMessages = firebase.firestore().collection('message');
+    //end differ
     // listen to authentication events
     this.authUnsubscribe = firebase.auth().onAuthStateChanged(async user => {
       if (!user) {
