@@ -29,8 +29,6 @@ export default class Start extends Component {
                  onChangeText={(name) => this.setState({ name })}
                  value={this.state.name}
                  placeholder='Your name'
-                 color='#757083'
-                 style={{opacity: 0.5}}
                />
              </View>
              <Text style={[styles.chooseBgdColor]}>Choose Background Color:</Text>
@@ -42,7 +40,6 @@ export default class Start extends Component {
              </View>
              <Button
                title='Start Chatting'
-               color='#757083'
                style={[styles.containerTriFlex, styles.startChatButton]}
                onPress={() => this.props.navigation.navigate('Chat', { name: this.state.name, color: this.state.color })}
              />
