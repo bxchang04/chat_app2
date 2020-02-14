@@ -4,8 +4,8 @@ import { GiftedChat, Bubble } from "react-native-gifted-chat";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 
 //Firebase setup
-const firebase = require('firebase');
-require('firebase/firestore');
+const  = require('firebase');
+require('firebasefirebase/firestore');
 
 export default class Chat extends Component {
   //why add (props)?
