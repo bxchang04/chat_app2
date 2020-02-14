@@ -94,7 +94,7 @@ export default class Chat extends Component {
      this.referenceMessages.add({
        _id: message._id,
        text: message.text,
-       createdAt: message.createdAt,
+       // createdAt: message.createdAt,
        user: message.user
        // uid: this.state.uid, // why comment this out? Not in repo
      });
@@ -110,7 +110,7 @@ export default class Chat extends Component {
        messages.push({
          _id: data._id,
          text: data.text,
-         createdAt: data.createdAt.toDate(),
+         // createdAt: data.createdAt.toDate(),
          user: data.user
        });
      });
