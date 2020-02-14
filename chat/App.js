@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, Text, Button, FlatList } from 'react-native';
 
 /*
 // import the screens
@@ -99,7 +99,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // listen to authentication events
-    this.authUnsubscribe = firebase.auth().onAuthStateChanged((async user) => {
+    this.authUnsubscribe = firebase.auth().onAuthStateChanged(async user => {
       if (!user) {
         await firebase.auth().signInAnonymously();
       }
