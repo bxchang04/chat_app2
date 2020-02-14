@@ -24,16 +24,15 @@ export default class Chat extends Component {
     }
   };
 
-    this.state = {
-      messages: [],
-      user: {
-        _id: "",
-        name: "",
-        avatar: ""
-      },
-      loginText: "Please wait, you are getting logged in..."
-    };
-  }
+  this.state = {
+    messages: [],
+    user: {
+      _id: "",
+      name: "",
+      avatar: ""
+    },
+    loginText: "Please wait, you are getting logged in..."
+  };
 
   componentDidMount() {
     //differs from repo
@@ -69,10 +68,16 @@ export default class Chat extends Component {
     // this.unsubscribeMessageUser();
   }
 
+  // handle send actions:
   onSend(messages = []) {
-   this.setState(previousState => ({
-     messages: GiftedChat.append(previousState.messages, messages),
-   }))
+    this.setState(
+      previousState => ({
+        messages: GiftedChat.append(previousState.messages, messages)
+      }),
+      () => {
+        this.addMessage();
+      }
+    );
   }
 
    // Passes user name given in the start screen to the title
