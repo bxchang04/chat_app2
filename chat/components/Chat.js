@@ -11,7 +11,7 @@ export default class Chat extends Component {
   //why add (props)?
   constructor(props) {
     super(props);
-    // YellowBox.ignoreWarnings(["Setting a timer"]);
+    YellowBox.ignoreWarnings(["Setting a timer"]);
     if (!firebase.apps.length) {
       firebase.initializeApp({
         apiKey: "AIzaSyANcG9zt8msq61vbVyFeAInu7AvegFD8og",
