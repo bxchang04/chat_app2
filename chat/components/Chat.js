@@ -22,17 +22,17 @@ export default class Chat extends Component {
         messagingSenderId: "320788073310"
       });
     }
-  };
 
-  this.state = {
-    messages: [],
-    user: {
-      _id: "",
-      name: "",
-      avatar: ""
-    },
-    loginText: "Please wait, you are getting logged in..."
-  };
+    this.state = {
+      messages: [],
+      user: {
+        _id: "",
+        name: "",
+        avatar: ""
+      },
+      loginText: "Please wait, you are getting logged in..."
+    };
+  }
 
   componentDidMount() {
     //differs from repo
@@ -106,7 +106,7 @@ export default class Chat extends Component {
      // go through each document
      querySnapshot.forEach((doc) => {
        // get the QueryDocumentSnapshot's data
-       var messages = doc.data();
+       let messages = doc.data();
        messages.push({
          _id: data._id,
          text: data.text,
