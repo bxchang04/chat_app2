@@ -90,7 +90,7 @@ export default class Chat extends Component {
    //Save message object to Firestore
    addMessage() {
      // add a new list to the collection
-     // const message = this.state.messages[0]; //in repo
+     const message = this.state.messages[0]; //in repo
      this.referenceMessages.add({
        _id: message._id,
        text: message.text,
@@ -106,7 +106,7 @@ export default class Chat extends Component {
      // go through each document
      querySnapshot.forEach((doc) => {
        // get the QueryDocumentSnapshot's data
-       let messages = doc.data();
+       let data = doc.data();
        messages.push({
          _id: data._id,
          text: data.text,
