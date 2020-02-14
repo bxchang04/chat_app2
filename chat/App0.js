@@ -1,3 +1,4 @@
+//migrate code into Chat.js
 //Get test code to work
 //Create a new Firestore database. Remember to use the same values in your documents as there are in the message object for Gifted Chat.
 
@@ -43,10 +44,10 @@ class App extends React.Component {
     }
 
     this.referenceShoppinglistUser = null;
-    this.referenceShoppinglistUser = firebase.firestore().collection('users'); //check this. Is it needed?
+    // this.referenceShoppinglistUser = firebase.firestore().collection('users'); //check this. Is it needed?
 
     this.referenceShoppingLists = firebase.firestore().collection('shoppinglists');
-    this.referenceShoppingLists = firebase.firestore().collection('users/messages'); // create new collection in firebase
+    // this.referenceShoppingLists = firebase.firestore().collection('users/messages'); // create new collection in firebase
     this.state = {
       lists: [],
       uid: 0,
@@ -62,8 +63,10 @@ class App extends React.Component {
       // get the QueryDocumentSnapshot's data
       var data = doc.data();
       lists.push({
-        name: data.name,
-        items: data.items.toString(),
+        name: data.name, //for shopping list
+        items: data.items.toString(), //for shopping list
+        // name: data.name, //uncomment once above works, then delete above and shopping list code
+        // items: data.text.toString(), //uncomment once above works, then delete above and shopping list code
       });
     });
     this.setState({
@@ -72,6 +75,7 @@ class App extends React.Component {
   }
 
   //Save user messages using Firestore
+  /*
   addMessage() {
     // add a new list to the collection
     this.referenceShoppingLists.add({
@@ -80,7 +84,21 @@ class App extends React.Component {
       uid: this.state.uid,
     });
   }
+*/
+    //Delete this once not needed
+    addList() {
+      // add a new list to the collection
+      this.referenceShoppingLists.add({
+        name: 'TestList', //change to username
+        items: ['eggs', 'pasta', 'veggies'], //change to message not array
+        uid: this.state.uid,
+      });
+    }
 
+  //change addList to addMessaeg below?. Learn how to comment out JSX for react native (how to comment? * /\ * /  not working)
+  /*
+  <Text style={styles.item}>{item.name}: {item.text}</Text>}
+  */
   render() {
 
     return (
@@ -97,7 +115,7 @@ class App extends React.Component {
 
         <Button
           onPress={() => {
-            this.addMessage();
+            this.addList();
           }}
           title = "Add something"
         />
