@@ -33,7 +33,7 @@ export default class Start extends Component {
                  style={{opacity: 0.5}}
                />
              </View>
-             <Text style={{opacity: 1.0, color: '#757083'}}>Choose Background Color:</Text>
+             <Text style={[styles.chooseBgdColor]}>Choose Background Color:</Text>
              <View style={styles.color_buttonContainer}>
                <Text style={[styles.color_Button, styles.black]} onPress={() => this.setState({ color: '#090C08' })}/>
                <Text style={[styles.color_Button, styles.gray]} onPress={() => this.setState({ color: '#474056' })}/>
@@ -78,13 +78,11 @@ const styles = StyleSheet.create({
     color: '#757083',
     backgroundColor: 'rgba(0,0,0,0.1)',
     flex: 0.5,
+    opacity: 0.5
   },
-  tContainer: {
-    flex: 1,
-    margin: 10,
-  },
-  containerTriFlex: {
-    flex: 1,
+  chooseBgdColor: {
+    opacity: 1.0,
+    color:'#757083'
   },
   container: {
     backgroundColor: '#fff',
@@ -94,6 +92,13 @@ const styles = StyleSheet.create({
     width: '88%',
     padding: 12,
     flex: 0.9
+  },
+  containerTriFlex: {
+    flex: 1,
+  },
+  tContainer: {
+    flex: 1,
+    margin: 10,
   },
   containerBlank: {
     flex: 0.09
