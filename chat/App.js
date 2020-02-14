@@ -16,4 +16,17 @@ const navigator = createStackNavigator({
 
 const navigatorContainer = createAppContainer(navigator);
 // Export it as the root component
+
 export default navigatorContainer;
+
+const firebase = require('firebase');
+require('firebase/firestore');
+
+firebase.initializeApp({
+  apiKey: "AIzaSyANcG9zt8msq61vbVyFeAInu7AvegFD8og",
+  authDomain: "test-30f18.firebaseapp.com",
+  databaseURL: "https://test-30f18.firebaseio.com",
+  projectId: "test-30f18",
+  storageBucket: "test-30f18.appspot.com",
+  messagingSenderId: "320788073310"
+});
