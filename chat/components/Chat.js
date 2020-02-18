@@ -40,7 +40,8 @@ export default class Chat extends Component {
     this.referenceMessages = firebase.firestore().collection('message');
     //end differ
     // listen to authentication events
-    this.authUnsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    // this.authUnsubscribe = firebase.auth().onAuthStateChanged(async user => { //took out async
+    this.unsubscribe = firebase.auth().onAuthStateChanged(async user => {
       if (!user) {
         await firebase.auth().signInAnonymously();
       }
@@ -55,17 +56,17 @@ export default class Chat extends Component {
       });
     });
 
-    // create a reference to the active user's documents (messages) -- is this needed? Not in repo.
+    // create a reference to the active user's documents (messages) -- is this needed? Not in repo. Commented out because in chat app, user needs to see everyone's messages.
     // this.referenceMessages = firebase.firestore().collection('message').where("uid", "==", this.state.uid); //collection name differs, order differs too
     // listen for collection changes for current user
-    this.unsubscribeMessageUser = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
+    this.unsubscribe = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
   }
 
   componentWillUnmount() {
     // stop listening to authentication
-    this.authUnsubscribe();
+    this.unsubscribe();
     // stop listening for changes -- not in repo. No longer needed?
-    // this.unsubscribeMessageUser();
+    this.unsubscribeMessageUser(); //uncommented
   }
 
   // handle send actions:
@@ -95,8 +96,8 @@ export default class Chat extends Component {
        _id: message._id,
        text: message.text,
        // createdAt: message.createdAt,
-       user: message.user
-       // uid: this.state.uid, // why comment this out? Not in repo
+       user: message.user,
+       uid: this.state.uid, // uncommented
      });
    }
 
@@ -132,7 +133,6 @@ export default class Chat extends Component {
    )
   }
 
-   //why is GiftedChat user = _id: 1?
   render() {
    return (
      <View style={{
