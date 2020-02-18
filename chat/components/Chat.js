@@ -66,7 +66,7 @@ export default class Chat extends Component {
     // stop listening to authentication
     this.unsubscribe();
     // stop listening for changes -- not in repo. No longer needed?
-    this.unsubscribeMessageUser(); //uncommented
+    // this.unsubscribeMessageUser(); //uncommented
   }
 
   // handle send actions:
