@@ -36,15 +36,16 @@ export default class Chat extends Component {
 
   componentDidMount() {
     //differs from repo
-    // this.referenceMessagesUser = null;
+    this.referenceMessagesUser = null;
     this.referenceMessages = firebase.firestore().collection('message');
     //end differ
     // listen to authentication events
-    // this.authUnsubscribe = firebase.auth().onAuthStateChanged(async user => { //took out async
-    this.unsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    this.authUnsubscribe = firebase.auth().onAuthStateChanged( async user => {
       if (!user) {
         await firebase.auth().signInAnonymously();
       }
+      // listen for collection changes for current user
+      this.unsubscribeMessageUser = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
       //update user state with currently active user data
       this.setState({
         user: {
@@ -57,16 +58,14 @@ export default class Chat extends Component {
     });
 
     // create a reference to the active user's documents (messages) -- is this needed? Not in repo. Commented out because in chat app, user needs to see everyone's messages.
-    // this.referenceMessages = firebase.firestore().collection('message').where("uid", "==", this.state.uid); //collection name differs, order differs too
-    // listen for collection changes for current user
-    this.unsubscribe = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
+    this.referenceMessages = firebase.firestore().collection('message').where("uid", "==", this.state.uid); //collection name differs, order differs too
   }
 
   componentWillUnmount() {
     // stop listening to authentication
-    this.unsubscribe();
+    this.authUnsubscribe();
     // stop listening for changes -- not in repo. No longer needed?
-    // this.unsubscribeMessageUser(); //uncommented
+    this.unsubscribeMessageUser(); //uncommented
   }
 
   // handle send actions:
