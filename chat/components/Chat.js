@@ -24,7 +24,7 @@ export default class Chat extends Component {
     }
 
     this.state = {
-      messages: [],
+      message: [],
       user: {
         _id: "",
         name: "",
@@ -36,8 +36,8 @@ export default class Chat extends Component {
 
   componentDidMount() {
     //differs from repo
-    this.referenceMessagesUser = null;
-    this.referenceMessages = firebase.firestore().collection('message');
+    this.referencemessageUser = null;
+    this.referencemessage = firebase.firestore().collection('message');
     //end differ
     // listen to authentication events
     this.authUnsubscribe = firebase.auth().onAuthStateChanged( async user => {
@@ -45,7 +45,7 @@ export default class Chat extends Component {
         await firebase.auth().signInAnonymously();
       }
       // listen for collection changes for current user
-      this.unsubscribeMessageUser = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
+      this.unsubscribeMessageUser = this.referencemessage.onSnapshot(this.onCollectionUpdate);
       //update user state with currently active user data
       this.setState({
         user: {
@@ -57,8 +57,8 @@ export default class Chat extends Component {
       });
     });
 
-    // create a reference to the active user's documents (messages) -- is this needed? Not in repo. Commented out because in chat app, user needs to see everyone's messages.
-    this.referenceMessages = firebase.firestore().collection('message').where("uid", "==", this.state.uid); //collection name differs, order differs too
+    // create a reference to the active user's documents (message) -- is this needed? Not in repo. Commented out because in chat app, user needs to see everyone's message.
+    this.referencemessage = firebase.firestore().collection('message').where("uid", "==", this.state.uid); //collection name differs, order differs too
   }
 
   componentWillUnmount() {
@@ -69,10 +69,10 @@ export default class Chat extends Component {
   }
 
   // handle send actions:
-  onSend(messages = []) {
+  onSend(message = []) {
     this.setState(
       previousState => ({
-        messages: GiftedChat.append(previousState.messages, messages)
+        message: GiftedChat.append(previousState.message, message)
       }),
       () => {
         this.addMessage();
@@ -90,8 +90,8 @@ export default class Chat extends Component {
    //Save message object to Firestore
    addMessage() {
      // add a new list to the collection
-     const message = this.state.messages[0]; //in repo
-     this.referenceMessages.add({
+     const message = this.state.message[0]; //in repo
+     this.referencemessage.add({
        _id: message._id,
        text: message.text,
        // createdAt: message.createdAt,
@@ -102,12 +102,12 @@ export default class Chat extends Component {
 
    //handle changes of data
    onCollectionUpdate = (querySnapshot) => {
-     const messages = [];
+     const message = [];
      // go through each document
      querySnapshot.forEach((doc) => {
        // get the QueryDocumentSnapshot's data
        let data = doc.data();
-       messages.push({
+       message.push({
          _id: data._id,
          text: data.text,
          // createdAt: data.createdAt.toDate(),
@@ -115,7 +115,7 @@ export default class Chat extends Component {
        });
      });
      this.setState({
-       messages,
+       message,
     });
    }
 
@@ -142,8 +142,8 @@ export default class Chat extends Component {
        <Text>{this.state.loggedInText}</Text>
        <GiftedChat
          renderBubble={this.renderBubble.bind(this)}
-         messages={this.state.messages}
-         onSend={messages => this.onSend(messages)}
+         message={this.state.message}
+         onSend={message => this.onSend(message)}
          user={{_id: 1,}}
        />
        {Platform.OS === 'android' ? <KeyboardSpacer /> : null }
