@@ -11,7 +11,13 @@ export default class Chat extends Component {
   //why add (props)?
   constructor(props) {
     super(props);
+<<<<<<< HEAD
     YellowBox.ignoreWarnings(["Setting a timer"]);
+||||||| merged common ancestors
+    // YellowBox.ignoreWarnings(["Setting a timer"]);
+=======
+    YellowBox.ignoreWarnings(["Setting a timer"]); // to get rid of annoying error messages
+>>>>>>> master
     if (!firebase.apps.length) {
       firebase.initializeApp({
         apiKey: "AIzaSyANcG9zt8msq61vbVyFeAInu7AvegFD8og",
@@ -30,6 +36,7 @@ export default class Chat extends Component {
         name: "",
         avatar: ""
       },
+      uid: 0,
       loginText: "Please wait, you are getting logged in..."
     };
   }
@@ -37,35 +44,35 @@ export default class Chat extends Component {
   componentDidMount() {
     //differs from repo
     // this.referenceMessagesUser = null;
-    this.referenceMessages = firebase.firestore().collection('message');
+    this.referenceMessages = firebase.firestore().collection('messages');
     //end differ
     // listen to authentication events
-    this.authUnsubscribe = firebase.auth().onAuthStateChanged(async user => {
+    this.authUnsubscribe = firebase.auth().onAuthStateChanged( async user => {
       if (!user) {
         await firebase.auth().signInAnonymously();
       }
+      // listen for collection changes for current user
+      this.unsubscribemessagesUser = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
       //update user state with currently active user data
       this.setState({
         user: {
           _id: user.uid,
           name: this.props.navigation.state.params.name,
-          avatar: "https://placeimg.com/140/140/any"
+          // avatar: "https://placeimg.com/140/140/any"
         },
         loginText: "Hello there!",
       });
     });
 
-    // create a reference to the active user's documents (messages) -- is this needed? Not in repo.
-    // this.referenceMessages = firebase.firestore().collection('message').where("uid", "==", this.state.uid); //collection name differs, order differs too
-    // listen for collection changes for current user
-    this.unsubscribeMessageUser = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
+    // create a reference to the active user's documents (messages) -- is this needed? Not in repo. Commented out because in chat app, user needs to see everyone's messages.
+    // this.referenceMessages = firebase.firestore().collection('messages').where("uid", "==", this.state.uid); //collection name differs, order differs too
   }
 
   componentWillUnmount() {
     // stop listening to authentication
     this.authUnsubscribe();
     // stop listening for changes -- not in repo. No longer needed?
-    // this.unsubscribeMessageUser();
+    this.unsubscribemessagesUser(); //uncommented
   }
 
   // handle send actions:
@@ -75,7 +82,7 @@ export default class Chat extends Component {
         messages: GiftedChat.append(previousState.messages, messages)
       }),
       () => {
-        this.addMessage();
+        this.addmessages();
       }
     );
   }
@@ -87,16 +94,22 @@ export default class Chat extends Component {
      };
    };
 
-   //Save message object to Firestore
-   addMessage() {
+   //Save messages object to Firestore
+   addmessages() {
      // add a new list to the collection
+<<<<<<< HEAD
      const message = this.state.messages[0]; //in repo
+||||||| merged common ancestors
+     // const message = this.state.messages[0]; //in repo
+=======
+     const messages = this.state.messages[0]; //in repo
+>>>>>>> master
      this.referenceMessages.add({
-       _id: message._id,
-       text: message.text,
-       createdAt: message.createdAt,
-       user: message.user
-       // uid: this.state.uid, // why comment this out? Not in repo
+       _id: messages._id,
+       text: messages.text,
+       createdAt: this.state.messages[0].createdAt,
+       user: messages.user,
+       uid: this.state.uid, // uncommented
      });
    }
 
@@ -132,7 +145,6 @@ export default class Chat extends Component {
    )
   }
 
-   //why is GiftedChat user = _id: 1?
   render() {
    return (
      <View style={{
@@ -140,12 +152,12 @@ export default class Chat extends Component {
        justifyContent: 'center',
        backgroundColor: this.props.navigation.state.params.color}}
      >
-       <Text>{this.state.loggedInText}</Text>
+       <Text>{this.state.loginText}</Text>
        <GiftedChat
          renderBubble={this.renderBubble.bind(this)}
          messages={this.state.messages}
          onSend={messages => this.onSend(messages)}
-         user={{_id: 1,}}
+         user={this.state.user}
        />
        {Platform.OS === 'android' ? <KeyboardSpacer /> : null }
      </View>
