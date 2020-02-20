@@ -11,7 +11,7 @@ export default class Chat extends Component {
   //why add (props)?
   constructor(props) {
     super(props);
-    YellowBox.ignoreWarnings(["Setting a timer"]); // to get rid of annoying error message
+    YellowBox.ignoreWarnings(["Setting a timer"]); // to get rid of annoying error messages
     if (!firebase.apps.length) {
       firebase.initializeApp({
         apiKey: "AIzaSyANcG9zt8msq61vbVyFeAInu7AvegFD8og",
@@ -24,20 +24,21 @@ export default class Chat extends Component {
     }
 
     this.state = {
-      message: [],
+      messages: [],
       user: {
         _id: "",
         name: "",
         avatar: ""
       },
+      uid: 0,
       loginText: "Please wait, you are getting logged in..."
     };
   }
 
   componentDidMount() {
     //differs from repo
-    this.referencemessageUser = null;
-    this.referencemessage = firebase.firestore().collection('message');
+    // this.referenceMessagesUser = null;
+    this.referenceMessages = firebase.firestore().collection('messages');
     //end differ
     // listen to authentication events
     this.authUnsubscribe = firebase.auth().onAuthStateChanged( async user => {
@@ -45,37 +46,37 @@ export default class Chat extends Component {
         await firebase.auth().signInAnonymously();
       }
       // listen for collection changes for current user
-      this.unsubscribeMessageUser = this.referencemessage.onSnapshot(this.onCollectionUpdate);
+      this.unsubscribemessagesUser = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
       //update user state with currently active user data
       this.setState({
         user: {
           _id: user.uid,
           name: this.props.navigation.state.params.name,
-          avatar: "https://placeimg.com/140/140/any"
+          // avatar: "https://placeimg.com/140/140/any"
         },
         loginText: "Hello there!",
       });
     });
 
-    // create a reference to the active user's documents (message) -- is this needed? Not in repo. Commented out because in chat app, user needs to see everyone's message.
-    // this.referencemessage = firebase.firestore().collection('message').where("uid", "==", this.state.uid); //collection name differs, order differs too
+    // create a reference to the active user's documents (messages) -- is this needed? Not in repo. Commented out because in chat app, user needs to see everyone's messages.
+    // this.referenceMessages = firebase.firestore().collection('messages').where("uid", "==", this.state.uid); //collection name differs, order differs too
   }
 
   componentWillUnmount() {
     // stop listening to authentication
     this.authUnsubscribe();
     // stop listening for changes -- not in repo. No longer needed?
-    this.unsubscribeMessageUser(); //uncommented
+    this.unsubscribemessagesUser(); //uncommented
   }
 
   // handle send actions:
-  onSend(message = []) {
+  onSend(messages = []) {
     this.setState(
       previousState => ({
-        message: GiftedChat.append(previousState.message, message)
+        messages: GiftedChat.append(previousState.messages, messages)
       }),
       () => {
-        this.addMessage();
+        this.addmessages();
       }
     );
   }
@@ -87,35 +88,35 @@ export default class Chat extends Component {
      };
    };
 
-   //Save message object to Firestore
-   addMessage() {
+   //Save messages object to Firestore
+   addmessages() {
      // add a new list to the collection
-     const message = this.state.message[0]; //in repo
-     this.referencemessage.add({
-       _id: message._id,
-       text: message.text,
-       // createdAt: message.createdAt,
-       user: message.user,
+     const messages = this.state.messages[0]; //in repo
+     this.referenceMessages.add({
+       _id: messages._id,
+       text: messages.text,
+       createdAt: this.state.messages[0].createdAt,
+       user: messages.user,
        uid: this.state.uid, // uncommented
      });
    }
 
    //handle changes of data
    onCollectionUpdate = (querySnapshot) => {
-     const message = [];
+     const messages = [];
      // go through each document
      querySnapshot.forEach((doc) => {
        // get the QueryDocumentSnapshot's data
        let data = doc.data();
-       message.push({
+       messages.push({
          _id: data._id,
          text: data.text,
-         // createdAt: data.createdAt.toDate(),
+         createdAt: data.createdAt.toDate(),
          user: data.user
        });
      });
      this.setState({
-       message,
+       messages,
     });
    }
 
@@ -139,12 +140,12 @@ export default class Chat extends Component {
        justifyContent: 'center',
        backgroundColor: this.props.navigation.state.params.color}}
      >
-       <Text>{this.state.loggedInText}</Text>
+       <Text>{this.state.loginText}</Text>
        <GiftedChat
          renderBubble={this.renderBubble.bind(this)}
-         message={this.state.message}
-         onSend={message => this.onSend(message)}
-         user={{_id: 1,}}
+         messages={this.state.messages}
+         onSend={messages => this.onSend(messages)}
+         user={this.state.user}
        />
        {Platform.OS === 'android' ? <KeyboardSpacer /> : null }
      </View>
