@@ -58,7 +58,7 @@ export default class Chat extends Component {
     });
 
     // create a reference to the active user's documents (message) -- is this needed? Not in repo. Commented out because in chat app, user needs to see everyone's message.
-    this.referencemessage = firebase.firestore().collection('message').where("uid", "==", this.state.uid); //collection name differs, order differs too
+    // this.referencemessage = firebase.firestore().collection('message').where("uid", "==", this.state.uid); //collection name differs, order differs too
   }
 
   componentWillUnmount() {
