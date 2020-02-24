@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AsyncStorage, View, Platform, Text, StyleSheet, YellowBox } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
-import { GiftedChat, Bubble } from "react-native-gifted-chat";
+import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 
 //Firebase setup
@@ -179,7 +179,7 @@ export default class Chat extends Component {
 
   // disable message input while offline
   renderInputToolbar(props) {
-    if (state.isConnected == false) {
+    if (this.state.isConnected == false) {
     } else {
       return(
         <InputToolbar
@@ -199,6 +199,7 @@ export default class Chat extends Component {
        <Text>{this.state.loginText}</Text>
        <GiftedChat
            renderBubble={this.renderBubble.bind(this)}
+           renderInputToolbar={this.renderInputToolbar.bind(this)}
            messages={this.state.messages}
            onSend={messages => this.onSend(messages)}
            user={this.state.user}
