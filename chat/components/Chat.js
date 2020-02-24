@@ -42,8 +42,8 @@ export default class Chat extends Component {
   componentDidMount() {
     this.getMessages();
 
-    NetInfo.isConnected.fetch().then(isConnected => {
-      if (isConnected) {
+    NetInfo.fetch().then(state => {
+      if (state.isConnected) {
         this.setState({
           isConnected: true,
         })
@@ -179,7 +179,7 @@ export default class Chat extends Component {
 
   // disable message input while offline
   renderInputToolbar(props) {
-    if (this.state.isConnected == false) {
+    if (state.isConnected == false) {
     } else {
       return(
         <InputToolbar
