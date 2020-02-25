@@ -4,6 +4,7 @@ import Chat from './components/Chat';
 // import react Navigation
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
+import {decode, encode} from 'base-64'
 
 // Create the navigator
 const navigator = createStackNavigator({
