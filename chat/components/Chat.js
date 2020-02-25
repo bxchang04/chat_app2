@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { AsyncStorage, View, Platform, Text, StyleSheet, YellowBox } from "react-native";
+import { AsyncStorage, View, Platform, Text, StyleSheet, TouchableOpacity, YellowBox } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat";
 import KeyboardSpacer from "react-native-keyboard-spacer";
+
+import MapView from 'react-native-maps';
+import CustomActions from './CustomActions';
 
 //Firebase setup
 const firebase = require('firebase');
@@ -35,7 +38,10 @@ export default class Chat extends Component {
         avatar: ""
       },
       uid: 0,
-      loginText: "Please wait, you are getting logged in..."
+      loginText: "Please wait, you are getting logged in...",
+      image: null,
+      location: null,
+      uri: null
     };
   }
 
@@ -132,17 +138,19 @@ export default class Chat extends Component {
    };
 
    //Save messages object to Firestore
-   addMessages() {
-     // add a new list to the collection
-     const messages = this.state.messages[0]; //in repo
-     this.referenceMessages.add({
-       _id: this.state.messages[0]._id,
-       text: this.state.messages[0].text || '',
-       createdAt: this.state.messages[0].createdAt,
-       user: this.state.user,
-       uid: this.state.uid
-     });
-   }
+  addMessages() {
+    // add a new list to the collection
+    const messages = this.state.messages[0]; //in repo
+    this.referenceMessages.add({
+     _id: this.state.messages[0]._id,
+     text: this.state.messages[0].text || '',
+     createdAt: this.state.messages[0].createdAt,
+     user: this.state.user,
+     uid: this.state.uid,
+     image: data.image || null,
+     location: data.location || null,
+  });
+  }
 
    //handle changes of data
    onCollectionUpdate = (querySnapshot) => {
@@ -155,7 +163,9 @@ export default class Chat extends Component {
          _id: data._id,
          text: data.text,
          createdAt: data.createdAt.toDate(),
-         user: data.user
+         user: data.user,
+         image: data.image || null,
+         location: data.location || null,
        });
      });
      this.setState({
@@ -189,6 +199,65 @@ export default class Chat extends Component {
     }
   }
 
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
+  onActionPress = () => {
+    const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
+    const cancelButtonIndex = options.length - 1;
+    this.context.actionSheet().showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      async (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            console.log('user wants to pick an image');
+            return;
+          case 1:
+            console.log('user wants to take a photo');
+            return;
+          case 2:
+            console.log('user wants to get their location');
+          default:
+        }
+      },
+    );
+  };
+
+  renderCustomView (props) {
+     const { currentMessage} = props;
+     if (currentMessage.location) {
+       return (
+           <MapView
+             style={{width: 150,
+               height: 100,
+               borderRadius: 13,
+               margin: 3}}
+             region={{
+               latitude: currentMessage.location.latitude,
+               longitude: currentMessage.location.longitude,
+               latitudeDelta: 0.0922,
+               longitudeDelta: 0.0421,
+             }}
+           />
+       );
+     }
+     return null;
+   }
+
+  //test this
+  get user() {
+    return {
+       _id: this.state.uid,
+       name: this.props.navigation.state.params.name,
+       // avatar: 'https://scontent.fbed1-1.fna.fbcdn.net/v/t1.0-9/81254713_10107625749857985_6078564461231210496_o.jpg?_nc_cat=101&_nc_sid=09cbfe&_nc_ohc=yw6KZT8MqFYAX_08saR&_nc_ht=scontent.fbed1-1.fna&oh=9aac078e596649011c6192f755ced32f&oe=5EB51954'
+       avatar: ''
+    };
+  }
+
   render() {
    return (
      <View style={{
@@ -203,11 +272,13 @@ export default class Chat extends Component {
            messages={this.state.messages}
            onSend={messages => this.onSend(messages)}
            user={this.state.user}
+           renderActions={this.renderCustomActions}
+           renderCustomView={this.renderCustomView}
+           user={this.user}
        />
        {Platform.OS === 'android' ? <KeyboardSpacer /> : null }
      </View>
-   )
-  }
+  )}
 }
 
 const styles = StyleSheet.create({
