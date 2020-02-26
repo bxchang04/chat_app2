@@ -102,6 +102,10 @@ export default class Chat extends Component {
     }
   };
 
+  test(){
+    console.log("test function");
+  }
+
   // handle send actions:
   onSend(messages = []) {
     this.setState(previousState => ({
@@ -200,7 +204,7 @@ export default class Chat extends Component {
   }
 
   renderCustomActions = (props) => {
-    return <CustomActions {...props} />;
+    return <CustomActions {...props} test = {this.test}/>;
   };
 
   renderCustomView (props) {

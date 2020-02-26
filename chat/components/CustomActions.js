@@ -13,6 +13,7 @@ require('firebase/firestore');
 export default class CustomActions extends React.Component {
 
   pickImage = async () => {
+
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
     if(status === 'granted') {
@@ -111,6 +112,9 @@ export default class CustomActions extends React.Component {
   };
 
   render() {
+    console.log("action");
+    this.props.test() // executes the function
+
     return (
       <TouchableOpacity style={[styles.container]} onPress={this.onActionsPress}>
         <View style={[styles.wrapper, this.props.wrapperStyle]}>
