@@ -72,18 +72,18 @@ export default class CustomActions extends React.Component {
         xhr.send(null);
       });
 
-      const imageNameBefore = uri.split("/");
-      const imageName = imageNameBefore[imageNameBefore.length - 1];
+      const imgBefore = uri.split("/");
+      const imgName = imgBefore[imgBefore.length - 1];
 
       const ref = firebase
         .storage()
         .ref()
-        .child("images/" + imageName);
+        .child("images/" + imgName);
 
       const snapshot = await ref.put(blob);
       blob.close();
-      const imageUrl = await snapshot.ref.getDownloadURL();
-      return imageUrl;
+      const imgUrl = await snapshot.ref.getDownloadURL();
+      return imgUrl;
     } catch (error) {
       console.log(error.message);
     }

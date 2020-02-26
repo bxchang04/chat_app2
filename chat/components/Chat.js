@@ -137,7 +137,7 @@ export default class Chat extends Component {
      };
    };
 
-   //Save messages object to Firestore
+   //Save messages object to Firestore -- test this (data vs. this.state vs. messages)
   addMessages() {
     // add a new list to the collection
     const messages = this.state.messages[0]; //in repo
@@ -147,8 +147,8 @@ export default class Chat extends Component {
      createdAt: this.state.messages[0].createdAt,
      user: this.state.user,
      uid: this.state.uid,
-     image: data.image || null,
-     location: data.location || null,
+     image: this.state.image || null,
+     location: this.state.location || null,
   });
   }
 
@@ -201,30 +201,6 @@ export default class Chat extends Component {
 
   renderCustomActions = (props) => {
     return <CustomActions {...props} />;
-  };
-
-  onActionPress = () => {
-    const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
-    const cancelButtonIndex = options.length - 1;
-    this.context.actionSheet().showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-      },
-      async (buttonIndex) => {
-        switch (buttonIndex) {
-          case 0:
-            console.log('user wants to pick an image');
-            return;
-          case 1:
-            console.log('user wants to take a photo');
-            return;
-          case 2:
-            console.log('user wants to get their location');
-          default:
-        }
-      },
-    );
   };
 
   renderCustomView (props) {
