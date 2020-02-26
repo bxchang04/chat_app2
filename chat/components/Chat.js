@@ -58,7 +58,7 @@ export default class Chat extends Component {
           if (!user) {
             await firebase.auth().signInAnonymously();
           }
-          //update user state with currently active user data
+          // update user state with currently active user data
           this.setState({
             user: {
               _id: user.uid,
@@ -86,8 +86,8 @@ export default class Chat extends Component {
   componentWillUnmount() {
     // stop listening to authentication
     this.authUnsubscribe();
-    // stop listening for changes -- not in repo. No longer needed?
-    this.unsubscribeMessagesUser(); //uncommented
+    // stop listening for changes
+    this.unsubscribeMessagesUser();
   }
 
   async getMessages() {
@@ -137,18 +137,18 @@ export default class Chat extends Component {
      };
    };
 
-   //Save messages object to Firestore -- test this (data vs. this.state vs. messages)
+   // Save messages object to Firestore
   addMessages() {
-    // add a new list to the collection
+    // Add a new list to the collection
     const messages = this.state.messages[0]; //in repo
     this.referenceMessages.add({
-     _id: this.state.messages[0]._id,
-     text: this.state.messages[0].text || '',
-     createdAt: this.state.messages[0].createdAt,
-     user: this.state.user,
-     uid: this.state.uid,
-     image: this.state.image || null,
-     location: this.state.location || null,
+     _id: messages._id,
+     text: messages.text || '',
+     createdAt: messages.createdAt,
+     user: messages.user,
+     uid: messages.uid,
+     image: messages.image || null,
+     location: messages.location || null,
   });
   }
 
@@ -204,7 +204,7 @@ export default class Chat extends Component {
   };
 
   renderCustomView (props) {
-     const { currentMessage} = props;
+     const { currentMessage } = props;
      if (currentMessage.location) {
        return (
            <MapView
