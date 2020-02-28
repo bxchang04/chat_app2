@@ -17,7 +17,6 @@ export default class CustomActions extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
     if(status === 'granted') {
-      this.props.test() // test
      let result = await ImagePicker.launchImageLibraryAsync({
        mediaTypes: 'Images',
      }).catch(error => console.log(error));
@@ -26,6 +25,7 @@ export default class CustomActions extends React.Component {
        this.setState({
          image: result
        });
+       this.props.test([result]);
      }
 
     }

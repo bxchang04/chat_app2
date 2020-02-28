@@ -102,16 +102,36 @@ export default class Chat extends Component {
     }
   };
 
-  test(messages = ["test"]) {
+  // test(messages = ["test"]) {
+  test(messages = []) {
     console.log("test function");
-    // this.setState.messages = "test string";
 
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }))
+    this.setState({
+      messages: [
+        {
+          _id: 1,
+          text: 'Test string',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        },
+      ],
+    })
 
+    this.setState({
+      messages: [
+        {
+          image: messages[0].uri
+        },
+      ],
+    })
+    console.log(messages[0].uri);
 
   }
+
 
   // handle send actions:
   onSend(messages = []) {
