@@ -104,9 +104,7 @@ export default class Chat extends Component {
 
   test() {
     console.log("test function");
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }));
+    this.setState.messages = "test string";
   }
 
   // handle send actions:
@@ -207,7 +205,7 @@ export default class Chat extends Component {
   }
 
   renderCustomActions = (props) => {
-    return <CustomActions {...props} test = {this.test}/>;
+    return <CustomActions {...props} test={this.test.bind(this)}/>;
   };
 
   renderCustomView (props) {
