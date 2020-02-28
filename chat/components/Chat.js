@@ -102,8 +102,11 @@ export default class Chat extends Component {
     }
   };
 
-  test(){
+  test() {
     console.log("test function");
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }));
   }
 
   // handle send actions:
@@ -150,13 +153,13 @@ export default class Chat extends Component {
      text: messages.text || '',
      createdAt: messages.createdAt,
      user: messages.user,
-     uid: messages.uid,
+     // uid: messages.uid,
      image: messages.image || null,
      location: messages.location || null,
   });
   }
 
-   //handle changes of data
+   // handle changes of data and store in state lists to render in view
    onCollectionUpdate = (querySnapshot) => {
      const messages = [];
      // go through each document
@@ -247,14 +250,14 @@ export default class Chat extends Component {
      >
        <Text>{this.state.loginText}</Text>
        <GiftedChat
-           renderBubble={this.renderBubble.bind(this)}
-           renderInputToolbar={this.renderInputToolbar.bind(this)}
-           messages={this.state.messages}
-           onSend={messages => this.onSend(messages)}
-           user={this.state.user}
-           renderActions={this.renderCustomActions}
-           renderCustomView={this.renderCustomView}
-           user={this.user}
+         renderBubble={this.renderBubble.bind(this)}
+         renderInputToolbar={this.renderInputToolbar.bind(this)}
+         messages={this.state.messages}
+         onSend={messages => this.onSend(messages)}
+         user={this.state.user}
+         renderActions={this.renderCustomActions}
+         renderCustomView={this.renderCustomView}
+         user={this.user}
        />
        {Platform.OS === 'android' ? <KeyboardSpacer /> : null }
      </View>

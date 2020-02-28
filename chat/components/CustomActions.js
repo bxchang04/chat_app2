@@ -17,6 +17,7 @@ export default class CustomActions extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
     if(status === 'granted') {
+      this.props.test() // test
      let result = await ImagePicker.launchImageLibraryAsync({
        mediaTypes: 'Images',
      }).catch(error => console.log(error));
@@ -112,8 +113,7 @@ export default class CustomActions extends React.Component {
   };
 
   render() {
-    console.log("action");
-    this.props.test() // executes the function
+    // console.log("action");
 
     return (
       <TouchableOpacity style={[styles.container]} onPress={this.onActionsPress}>
