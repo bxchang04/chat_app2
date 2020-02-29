@@ -22,12 +22,21 @@ export default class CustomActions extends React.Component {
      }).catch(error => console.log(error));
 
      if (!result.cancelled) {
-       this.setState({
-         image: result
-       });
-       this.props.test([result]);
-     }
-
+       const image =
+        {
+           _id: "",
+           text: "",
+           createdAt: new Date(),
+           user: {
+             _id: "",
+             name: "",
+             avatar: "",
+           },
+           // image: result.uri
+           image: "https://images.careerfoundry.com/public/logo/cf_logo_min_full_dark.svg"
+         };
+       this.props.onSend([image]);
+      }
     }
   }
 

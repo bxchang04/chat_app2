@@ -72,7 +72,8 @@ export default class Chat extends Component {
           this.referenceMessages = firebase.firestore().collection('messages')
 
           // listen for collection changes for current user
-          this.unsubscribeMessagesUser = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
+          this.unsubscribeMessageUser = this.referenceMessageUser.orderBy('createdAt', 'desc').onSnapshot(this.onCollectionUpdate);
+          // this.unsubscribeMessagesUser = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
         });
       } else {
         this.setState({
@@ -112,6 +113,7 @@ export default class Chat extends Component {
           _id: 1,
           text: 'Test string',
           createdAt: new Date(),
+          image: messages[0].uri,
           user: {
             _id: 2,
             name: 'React Native',
@@ -120,18 +122,8 @@ export default class Chat extends Component {
         },
       ],
     })
-
-    this.setState({
-      messages: [
-        {
-          image: messages[0].uri
-        },
-      ],
-    })
-    console.log(messages[0].uri);
-
+  this.onSend(messages);
   }
-
 
   // handle send actions:
   onSend(messages = []) {
