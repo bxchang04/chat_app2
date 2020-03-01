@@ -103,28 +103,6 @@ export default class Chat extends Component {
     }
   };
 
-  // test(messages = ["test"]) {
-  test(messages = []) {
-    console.log("test function");
-
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Test string',
-          createdAt: new Date(),
-          image: messages[0].uri,
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-      ],
-    })
-  this.onSend(messages);
-  }
-
   // handle send actions:
   onSend(messages = []) {
     this.setState(previousState => ({
@@ -223,7 +201,7 @@ export default class Chat extends Component {
   }
 
   renderCustomActions = (props) => {
-    return <CustomActions {...props} test={this.test.bind(this)}/>;
+    return <CustomActions {...props} />;
   };
 
   renderCustomView (props) {
@@ -270,7 +248,6 @@ export default class Chat extends Component {
          renderInputToolbar={this.renderInputToolbar.bind(this)}
          messages={this.state.messages}
          onSend={messages => this.onSend(messages)}
-         test={messages => this.test(messages)}
          user={this.state.user}
          renderActions={this.renderCustomActions}
          renderCustomView={this.renderCustomView}
