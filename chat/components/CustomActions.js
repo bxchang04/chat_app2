@@ -32,8 +32,7 @@ export default class CustomActions extends React.Component {
              name: "",
              avatar: "",
            },
-           // image: result.uri
-           image: "https://images.careerfoundry.com/public/logo/cf_logo_min_full_dark.svg"
+           image: result.uri
          };
        this.props.onSend([image]);
       }
@@ -46,10 +45,20 @@ export default class CustomActions extends React.Component {
       let result = await ImagePicker.launchCameraAsync().catch(error => console.log(error));
 
       if (!result.cancelled) {
-        this.setState({
-          image: result
-        });
-      }
+        const image =
+         {
+            _id: "",
+            text: "",
+            createdAt: new Date(),
+            user: {
+              _id: "",
+              name: "",
+              avatar: "",
+            },
+            image: result.uri
+          };
+        this.props.onSend([image]);
+       }
     }
   }
 
@@ -59,11 +68,29 @@ export default class CustomActions extends React.Component {
       let result = await Location.getCurrentPositionAsync({});
 
       if (result) {
-        this.setState({
-          location: result
-        });
-      }
-    }
+        const location =
+          {
+            _id: "",
+            createdAt: new Date(),
+            user: {
+              _id: "",
+              name: "",
+              avatar: "",
+            },
+            location: {
+              latitude: result.coords.latitute,
+              longitude: result.coords.longitude,
+            },
+          }
+/*        if (result) {
+          this.setState({
+            location: result
+          });
+        }*/
+
+       this.props.renderCustomView([result]);
+     }
+   }
   }
 
   //store data exchanged between users in firebase
@@ -122,7 +149,6 @@ export default class CustomActions extends React.Component {
   };
 
   render() {
-    // console.log("action");
 
     return (
       <TouchableOpacity style={[styles.container]} onPress={this.onActionsPress}>
