@@ -116,7 +116,7 @@ export default class CustomActions extends React.Component {
       const ref = firebase
         .storage()
         .ref()
-        .child("images/" + imgName);
+        .child(`images/${imgName}`);
 
       const snapshot = await ref.put(blob);
       blob.close();

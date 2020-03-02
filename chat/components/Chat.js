@@ -38,7 +38,7 @@ export default class Chat extends Component {
         avatar: ""
       },
       uid: 0,
-      loginText: "Please wait, you are getting logged in...",
+      loginText: `Please wait, you are getting logged in...`,
       image: null,
       location: null,
       uri: null
@@ -65,7 +65,7 @@ export default class Chat extends Component {
               name: this.props.navigation.state.params.name,
               avatar: ''
             },
-            loginText: "Hello there!",
+            loginText: `Hello there!`,
           });
 
           // create a reference to the active user's documents (messages)
@@ -230,7 +230,6 @@ export default class Chat extends Component {
     return {
        _id: this.state.uid,
        name: this.props.navigation.state.params.name,
-       // avatar: 'https://scontent.fbed1-1.fna.fbcdn.net/v/t1.0-9/81254713_10107625749857985_6078564461231210496_o.jpg?_nc_cat=101&_nc_sid=09cbfe&_nc_ohc=yw6KZT8MqFYAX_08saR&_nc_ht=scontent.fbed1-1.fna&oh=9aac078e596649011c6192f755ced32f&oe=5EB51954'
        avatar: ''
     };
   }
