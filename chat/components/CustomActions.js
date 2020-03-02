@@ -78,22 +78,17 @@ export default class CustomActions extends React.Component {
               avatar: "",
             },
             location: {
-              latitude: result.coords.latitute,
+              latitude: result.coords.latitude,
               longitude: result.coords.longitude,
             },
           }
-/*        if (result) {
-          this.setState({
-            location: result
-          });
-        }*/
 
-       this.props.renderCustomView([result]);
+       this.props.onSend([location]); // expects a list of messages
      }
    }
   }
 
-  //store data exchanged between users in firebase
+  // store data exchanged between users in firebase
   uploadImageFetch = async (uri) => {
     try {
       const blob = await new Promise((resolve, reject) => {

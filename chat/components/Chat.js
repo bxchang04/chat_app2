@@ -71,8 +71,8 @@ export default class Chat extends Component {
           // create a reference to the active user's documents (messages)
           this.referenceMessages = firebase.firestore().collection('messages')
 
-          // listen for collection changes for current user
-          this.unsubscribeMessageUser = this.referenceMessageUser.orderBy('createdAt', 'desc').onSnapshot(this.onCollectionUpdate);
+          // listen for collection changes for current user and sort by time created
+          this.unsubscribeMessagesUser = this.referenceMessages.orderBy('createdAt', 'desc').onSnapshot(this.onCollectionUpdate);
           // this.unsubscribeMessagesUser = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
         });
       } else {
@@ -83,6 +83,12 @@ export default class Chat extends Component {
       }
     });
   }
+
+/*  unsubscribeMessagesUser() {
+    this.referenceMessages = firebase.firestore().collection('messages');
+
+    return this.referenceMessages.orderBy('createdAt', 'desc').onSnapshot(this.onCollectionUpdate);
+  }*/
 
   componentWillUnmount() {
     // stop listening to authentication
@@ -105,6 +111,7 @@ export default class Chat extends Component {
 
   // handle send actions:
   onSend(messages = []) {
+    console.log(messages);
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }), () => {
