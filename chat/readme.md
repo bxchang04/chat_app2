@@ -22,3 +22,5 @@
 >Set up cloud storage (click "storage")
 
 >Click gear icon above Develop tab -> select "project settings" -> add Firebase to a web app -> copy the firebaseConfig settings and paste into your Chat.js file.
+
+https://ora.pm/project/184440/kanban
