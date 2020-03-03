@@ -31,7 +31,6 @@ export default class Start extends Component {
                  value={this.state.name}
                  placeholder='Your name'
                />
-               {Platform.OS === 'android' ? <KeyboardSpacer /> : null }
              </View>
              <Text style={[styles.chooseBgdColor]}>Choose Background Color:</Text>
              <View style={styles.color_buttonContainer}>

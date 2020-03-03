@@ -13,79 +13,89 @@ require('firebase/firestore');
 export default class CustomActions extends React.Component {
 
   pickImage = async () => {
+    try{
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if(status === 'granted') {
+       let result = await ImagePicker.launchImageLibraryAsync({
+         mediaTypes: 'Images',
+       }).catch(error => console.log(error));
 
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-
-    if(status === 'granted') {
-     let result = await ImagePicker.launchImageLibraryAsync({
-       mediaTypes: 'Images',
-     }).catch(error => console.log(error));
-
-     if (!result.cancelled) {
-       const image =
-        {
-           _id: "",
-           text: "",
-           createdAt: new Date(),
-           user: {
+       if (!result.cancelled) {
+         const image =
+          {
              _id: "",
-             name: "",
-             avatar: "",
-           },
-           image: result.uri
-         };
-       this.props.onSend([image]);
+             text: "",
+             createdAt: new Date(),
+             user: {
+               _id: "",
+               name: "",
+               avatar: "",
+             },
+             image: result.uri
+           };
+         this.props.onSend([image]);
+        }
       }
+    } catch(err) {
+        console.log(err.message);
     }
   }
 
   takePhoto = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA);
-    if (status === 'granted') {
-      let result = await ImagePicker.launchCameraAsync().catch(error => console.log(error));
+    try{
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA);
+      if (status === 'granted') {
+        let result = await ImagePicker.launchCameraAsync().catch(error => console.log(error));
 
-      if (!result.cancelled) {
-        const image =
-         {
-            _id: "",
-            text: "",
-            createdAt: new Date(),
-            user: {
+        if (!result.cancelled) {
+          const image =
+           {
               _id: "",
-              name: "",
-              avatar: "",
-            },
-            image: result.uri
-          };
-        this.props.onSend([image]);
-       }
+              text: "",
+              createdAt: new Date(),
+              user: {
+                _id: "",
+                name: "",
+                avatar: "",
+              },
+              image: result.uri
+            };
+          this.props.onSend([image]);
+         }
+      }
+    } catch(err) {
+      console.log(err.message);
     }
   }
 
   getLocation = async () => {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if(status === 'granted') {
-      let result = await Location.getCurrentPositionAsync({});
+    try{
+      const { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if(status === 'granted') {
+        let result = await Location.getCurrentPositionAsync({});
 
-      if (result) {
-        const location =
-          {
-            _id: "",
-            createdAt: new Date(),
-            user: {
+        if (result) {
+          const location =
+            {
               _id: "",
-              name: "",
-              avatar: "",
-            },
-            location: {
-              latitude: result.coords.latitude,
-              longitude: result.coords.longitude,
-            },
-          }
+              createdAt: new Date(),
+              user: {
+                _id: "",
+                name: "",
+                avatar: "",
+              },
+              location: {
+                latitude: result.coords.latitude,
+                longitude: result.coords.longitude,
+              },
+            }
 
-       this.props.onSend([location]); // expects a list of messages
-     }
-   }
+         this.props.onSend([location]); // expects a list of messages
+        }
+      }
+    } catch(err) {
+      console.log(err.message);
+    }
   }
 
   // store data exchanged between users in firebase
