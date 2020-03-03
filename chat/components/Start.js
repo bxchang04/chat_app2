@@ -1,9 +1,11 @@
-//yourNameInput, tContainer, startChatButton, bgdImage, color_buttonContainer, color_Button, bgdImage, TouchableOpacity -> Button
+/**
+ * @description start.js is the starting page of this app.
+ */
 
 import React, { Component } from 'react';
 // import relevant components from react native
 
-import { StyleSheet, Text, View, TextInput, Button, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ImageBackground, TouchableOpacity } from 'react-native';
 import KeyboardSpacer from "react-native-keyboard-spacer";
 
 // Starting Screen
@@ -34,10 +36,10 @@ export default class Start extends Component {
              </View>
              <Text style={[styles.chooseBgdColor]}>Choose Background Color:</Text>
              <View style={styles.color_buttonContainer}>
-               <Text style={[styles.color_Button, styles.black]} onPress={() => this.setState({ color: '#090C08' })}/>
-               <Text style={[styles.color_Button, styles.gray]} onPress={() => this.setState({ color: '#474056' })}/>
-               <Text style={[styles.color_Button, styles.blue]} onPress={() => this.setState({ color: '#8A95A5' })}/>
-               <Text style={[styles.color_Button, styles.green]} onPress={() => this.setState({ color: '#B9C6AE' })}/>
+               <TouchableOpacity style={[styles.color_Button, styles.black]} onPress={() => this.setState({ color: '#090C08' })}/>
+               <TouchableOpacity style={[styles.color_Button, styles.gray]} onPress={() => this.setState({ color: '#474056' })}/>
+               <TouchableOpacity style={[styles.color_Button, styles.blue]} onPress={() => this.setState({ color: '#8A95A5' })}/>
+               <TouchableOpacity style={[styles.color_Button, styles.green]} onPress={() => this.setState({ color: '#B9C6AE' })}/>
              </View>
              <Button
                title='Start Chatting'
@@ -53,7 +55,9 @@ export default class Start extends Component {
      );
   }
 }
-
+/**
+* styling section
+*/
 const styles = StyleSheet.create({
   title: {
     fontSize: 45,
