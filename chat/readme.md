@@ -1,23 +1,24 @@
-Introduction:
+#Introduction:
 To use expo, refer to the Expo Documentation Installation page on the Expo website.
 
 Use npm install -g expo-cli or yarn add expo-cli --global. Start the app by using npm start or yarn start.
 
 To use firebase, refer to Google's Firebase documentation page on the Firebase website.
 
-Setup:
-Create a Firebase account
 
-Login to your account
+#Setup:
+>Create a Firebase account
 
-Create a database
+>Login to your account
 
-Create and name a collection in your database
+>Create a database
 
-Input your user credentials
+>Create and name a collection in your database
 
-Click on "authentication" -> "set up sign-in method" -> enable anonymous authentication
+>Input your user credentials
 
-Set up cloud storage (click "storage")
+>Click on "authentication" -> "set up sign-in method" -> enable anonymous authentication
 
-Click gear icon above Develop tab -> select "project settings" -> add Firebase to a web app -> copy the firebaseConfig settings and paste into your Chat.js file.
+>Set up cloud storage (click "storage")
+
+>Click gear icon above Develop tab -> select "project settings" -> add Firebase to a web app -> copy the firebaseConfig settings and paste into your Chat.js file.
