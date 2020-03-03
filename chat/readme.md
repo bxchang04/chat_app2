@@ -1,12 +1,12 @@
-#Introduction:
-To use expo, refer to the Expo Documentation Installation page on the Expo website.
+# Introduction:
+>To use expo, refer to the Expo Documentation Installation page on the Expo website.
 
-Use npm install -g expo-cli or yarn add expo-cli --global. Start the app by using npm start or yarn start.
+>Use npm install -g expo-cli or yarn add expo-cli --global. Start the app by using npm start or yarn start.
 
-To use firebase, refer to Google's Firebase documentation page on the Firebase website.
+>To use firebase, refer to Google's Firebase documentation page on the Firebase website.
 
 
-#Setup:
+# Setup:
 >Create a Firebase account
 
 >Login to your account
