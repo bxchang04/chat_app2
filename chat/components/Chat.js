@@ -59,10 +59,10 @@ export default class Chat extends Component {
           }
           // update user state with currently active user data
           this.setState({
+            uid: user.uid,
             user: {
               _id: user.uid,
               name: this.props.navigation.state.params.name,
-              avatar: 'https://placeimg.com/140/140/any'
             },
             loginText: `Hello there!`,
           });
@@ -175,7 +175,6 @@ export default class Chat extends Component {
      text: messages.text || '',
      createdAt: messages.createdAt,
      user: messages.user,
-     // uid: messages.uid,
      image: messages.image || null,
      location: messages.location || null,
   });
@@ -272,7 +271,7 @@ export default class Chat extends Component {
     return {
        _id: this.state.uid,
        name: this.props.navigation.state.params.name,
-       avatar: ''
+       avatar: 'https://placeimg.com/140/140/any'
     };
   }
 
