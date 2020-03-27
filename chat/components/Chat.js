@@ -62,7 +62,7 @@ export default class Chat extends Component {
             user: {
               _id: user.uid,
               name: this.props.navigation.state.params.name,
-              avatar: ''
+              avatar: 'https://placeimg.com/140/140/any'
             },
             loginText: `Hello there!`,
           });
